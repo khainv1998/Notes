@@ -158,6 +158,9 @@ kubectl cluster-info
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/baremetal/deploy.yaml
 
+# cho phép ingress NGINX chạy trên master (chỉ test, 1 node cluster)
+kubectl taint nodes master node-role.kubernetes.io/control-plane-
+
 # kiểm tra
 kubectl get pods -n ingress-nginx
 # kết quả mong đợi:
@@ -187,11 +190,6 @@ kubectl get pods -n metallb-system
 # NAME                          READY   STATUS    RESTARTS   AGE
 # controller-xxxxxx             1/1     Running   0          30s
 # speaker-yyyyyy                1/1     Running   0          30s
-```
-
-cho phép ingress NGINX chạy trên master (chỉ test, 1 node cluster)
-```bash
-kubectl taint nodes master node-role.kubernetes.io/control-plane-
 ```
 
 - cấu hình cho MetalLB
