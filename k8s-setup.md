@@ -109,6 +109,20 @@ sudo kubeadm init \
   --pod-network-cidr=10.244.0.0/16 # dải ip để cấp cho các pod, không phải ip thật là network overlay
 ```
 
+move config file
+
+```bash
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+```
+
+export config
+
+```bash
+export KUBECONFIG=/etc/kubernetes/admin.conf
+```
+
 - cài đặt network plugin calico cho cụm k8s
 
 ```bash
