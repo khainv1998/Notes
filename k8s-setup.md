@@ -189,6 +189,11 @@ kubectl get pods -n metallb-system
 # speaker-yyyyyy                1/1     Running   0          30s
 ```
 
+cho phép ingress NGINX chạy trên master (chỉ test, 1 node cluster)
+```bash
+kubectl taint nodes master node-role.kubernetes.io/control-plane-
+```
+
 - cấu hình cho MetalLB
   Tạo file metallb-config.yaml:
 
