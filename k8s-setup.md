@@ -179,6 +179,22 @@ kubectl get svc -n ingress-nginx
 kubectl logs -n ingress-nginx deploy/ingress-nginx-controller
 ```
 
+Chuyển ingress-nginx-controller sang LoadBalancer
+
+```bash
+kubectl edit svc ingress-nginx-controller -n ingress-nginx
+# sử dòng type: NodePort => type: LoadBalancer
+# NAME                                 TYPE           CLUSTER-IP       EXTERNAL-IP      PORT(S)                      AGE
+# ingress-nginx-controller             LoadBalancer   10.98.132.213    10.134.128.200   80:31159/TCP,443:31859/TCP   2m
+# ingress-nginx-controller-admission   ClusterIP      10.109.37.112    <none>           443/TCP                      2m
+
+# Kiểm tra:
+kubectl get svc -n ingress-nginx
+# Kết quả mong đợi
+# NAME                                 TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)                      AGE
+# ingress-nginx-controller             LoadBalancer   10.98.132.213   103.70.13.217   80:31159/TCP,443:31859/TCP   6m
+```
+
 - Cài đặt MetalLB
 
 ```bash
@@ -232,22 +248,6 @@ Apply config
 
 ```bash
 kubectl apply -f metallb-config.yaml
-```
-
-Chuyển ingress-nginx-controller sang LoadBalancer
-
-```bash
-kubectl edit svc ingress-nginx-controller -n ingress-nginx
-# sử dòng type: NodePort => type: LoadBalancer
-# NAME                                 TYPE           CLUSTER-IP       EXTERNAL-IP      PORT(S)                      AGE
-# ingress-nginx-controller             LoadBalancer   10.98.132.213    10.134.128.200   80:31159/TCP,443:31859/TCP   2m
-# ingress-nginx-controller-admission   ClusterIP      10.109.37.112    <none>           443/TCP                      2m
-
-# Kiểm tra:
-kubectl get svc -n ingress-nginx
-# Kết quả mong đợi
-# NAME                                 TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)                      AGE
-# ingress-nginx-controller             LoadBalancer   10.98.132.213   103.70.13.217   80:31159/TCP,443:31859/TCP   6m
 ```
 
 - cấu hình nginx revert proxy (nginx bên ngoài k8s)
