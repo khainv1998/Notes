@@ -1,0 +1,11 @@
+server:
+  port: 8085
+spring:
+  application:
+    name: gateway-service
+services:
+  order:
+    url: http://localhost:8081
+  payment:
+    url: http://localhost:8082
+
